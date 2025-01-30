@@ -1,0 +1,11 @@
+.container{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
+    
+}
+
+.container:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #0073ff;
+    -fx-effect: dropshadow(gaussian , rgba(30, 30, 30, 0.108), 0, 1, 1, 2);
+}

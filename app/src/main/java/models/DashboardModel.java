@@ -10,7 +10,7 @@ public class DashboardModel {
     
 
     public DashboardModel(){
-        buyProperty.set(true);
+        buyProperty.set(false);
         loanProperty.set(false);
         saleProperty.set(false);
     }
@@ -32,6 +32,10 @@ public class DashboardModel {
 
 
   
-    
+   public static enum Views{
+        BUY,
+        LOAN,
+        SALE
+    }
     
 }

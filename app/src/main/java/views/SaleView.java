@@ -1,17 +1,13 @@
 package views;
 
-import javafx.scene.layout.Region;
-import javafx.util.Builder;
 
-public class SaleView implements Builder<Region> {
+import views.dashboard.ViewDashboard;
+
+public class SaleView extends ViewDashboard {
 
     public SaleView(){
-
+        super("sale");
     }
 
-    @Override
-    public Region build() {
-        // TODO Auto-generated method stub
-        return new Region();
-    }
+
 }

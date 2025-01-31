@@ -1,6 +1,5 @@
 package views.dashboard;
 
-import java.util.ArrayList;
 
 import core.ResourceLoader;
 import javafx.geometry.Insets;

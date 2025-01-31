@@ -1,8 +1,14 @@
 package controllers;
 
+import java.util.HashMap;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+
 import javafx.concurrent.Task;
 import javafx.scene.layout.Region;
 import models.DashboardModel;
+import models.DashboardModel.Views;
 import views.DashboardView;
 
 public class DashboardController {
@@ -12,6 +18,7 @@ public class DashboardController {
     private final BuyController buyController;
     private final LoanController loanController;
     private final SaleController saleController;
+    private final HashMap<String,Function<?,?>> service = new HashMap<>(); 
 
 
     public DashboardController(){
@@ -22,11 +29,13 @@ public class DashboardController {
         buyController.getView().visibleProperty().bind(model.buyProperty());
         loanController.getView().visibleProperty().bind(model.loanProperty());
         saleController.getView().visibleProperty().bind(model.saleProperty());
+        service.put("showView", this::showView);
 
         this.view = new DashboardView(
             buyController.getView(),
             loanController.getView(),
-            saleController.getView()
+            saleController.getView(),
+            service
 
         );
         
@@ -36,18 +45,36 @@ public class DashboardController {
         return view.build();
     }
 
-    private void buyView(){
-        Task<Void> openView=new Task<Void>() {
 
-            @Override
-            protected Void call() throws Exception {
 
-                
+    private Void showView(Object view){
+        
+        switch (view) {
+            case Views.BUY:
+                changePropertiesViews(true, false, false);
+                break;
+            case Views.LOAN:
+                changePropertiesViews(false, true, false);
+                break;
+            case Views.SALE:
+                changePropertiesViews(false, false, true);
+                break;
+            default:
+                changePropertiesViews(false, false, false);
+                break;
+        }
 
-                return null;
-            }
-           
+        return null;
+    }   
 
-        };
+    private void changePropertiesViews(boolean buy, boolean loan, boolean sale){
+        try{
+            model.buyProperty().set(buy);
+            model.loanProperty().set(loan);
+            model.saleProperty().set(sale);
+        }catch(Exception e){
+            System.err.println("Lo sentimos hubo un error : "+ e.getStackTrace());
+        }
+    
     }
 }

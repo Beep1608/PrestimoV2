@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 
 import core.ResourceLoader;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 
 import javafx.scene.Node;
@@ -30,16 +31,18 @@ public class DashboardView implements Builder<Region> {
     private final Region buyView;
     private final Region loanView;
     private final Region saleView;
-   private final TopBar topBar;
+    private final TopBar topBar;
 
     private final  HashMap<String,Function<?,?>> service;
 
 
     public DashboardView(Region buyView, Region loanView, Region saleView, HashMap<String,Function<?,?>> service ){
+       
         this.buyView = buyView;
         this.loanView = loanView;
         this.saleView = saleView;
         this.topBar = new TopBar();
+        this.topBar.currentView().set("Dasboard");
         this.service = service;
 
         showView = (Function<Views, Void>) this.service.get("showView");
@@ -68,15 +71,18 @@ public class DashboardView implements Builder<Region> {
         Node buy = new Option("Compra", "shopping-cart.png","shopping-cart-h.png").createOption();
         buy.setOnMouseClicked(evt ->{
             showView.apply(Views.BUY);
+            topBar.currentView().set("Compra");
         });
         Node loan = new Option("Prestamo", "loan.png","loan-h.png").createOption();
         loan.setOnMouseClicked(evt ->{
             showView.apply(Views.LOAN);
+            topBar.currentView().set("Prestamo");
         });
 
         Node sale = new Option("Venta", "price-tag.png","price-tag-h.png").createOption();
         sale.setOnMouseClicked(evt ->{
             showView.apply(Views.SALE);
+            topBar.currentView().set("Venta");
         });
         
         
@@ -90,7 +96,7 @@ public class DashboardView implements Builder<Region> {
     private Node createContentContainer(){
         
        VBox innerContentContainer =  new VBox(
-            new TopBar().createTopBar(),
+           topBar.createTopBar(),
             createContent()
         );
         Responsive.bindingToParentWidth(innerContentContainer, 1);

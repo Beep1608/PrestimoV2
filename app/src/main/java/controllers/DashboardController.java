@@ -29,6 +29,7 @@ public class DashboardController {
         buyController.getView().visibleProperty().bind(model.buyProperty());
         loanController.getView().visibleProperty().bind(model.loanProperty());
         saleController.getView().visibleProperty().bind(model.saleProperty());
+        
         service.put("showView", this::showView);
 
         this.view = new DashboardView(

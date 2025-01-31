@@ -2,6 +2,7 @@ package views.dashboard;
 
 import core.ResourceLoader;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringPropertyBase;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -14,7 +15,7 @@ import views.utils.Responsive;
 public class TopBar {
     private final double height = 60;
     private final HBox container;
-    private final SimpleStringProperty currentView  = new SimpleStringProperty("Dashboard");
+    private final SimpleStringProperty currentView  = new SimpleStringProperty();
     public TopBar(){
         this.container = new HBox();
         container.getStylesheets().add(ResourceLoader.load("/css/dashboard/topbar.css"));
@@ -35,7 +36,8 @@ public class TopBar {
     }
 
     private Node createTitleContainer(){
-        Text title = new Text(currentView.get());
+        Text title = new Text();
+        title.textProperty().bind(currentView);
         title.setFont(new Font("Roboto", 25));
         title.setFill(Color.rgb(72, 76, 82));
         HBox container = new HBox(title);
@@ -44,6 +46,10 @@ public class TopBar {
         container.getStyleClass().add("title-container");
         container.setAlignment(Pos.CENTER);
         return container;
+    }
+
+    public StringPropertyBase currentView(){
+        return currentView;
     }
     
 }

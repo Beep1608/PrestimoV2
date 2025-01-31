@@ -30,6 +30,7 @@ public class DashboardView implements Builder<Region> {
     private final Region buyView;
     private final Region loanView;
     private final Region saleView;
+   private final TopBar topBar;
 
     private final  HashMap<String,Function<?,?>> service;
 
@@ -38,9 +39,10 @@ public class DashboardView implements Builder<Region> {
         this.buyView = buyView;
         this.loanView = loanView;
         this.saleView = saleView;
+        this.topBar = new TopBar();
         this.service = service;
 
-        showView = (Function<Views, Void>) service.get("showView");
+        showView = (Function<Views, Void>) this.service.get("showView");
     }
 
     
@@ -86,6 +88,7 @@ public class DashboardView implements Builder<Region> {
     }
     
     private Node createContentContainer(){
+        
        VBox innerContentContainer =  new VBox(
             new TopBar().createTopBar(),
             createContent()

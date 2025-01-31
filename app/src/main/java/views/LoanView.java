@@ -1,18 +1,12 @@
 package views;
 
-import javafx.scene.layout.Region;
-import javafx.util.Builder;
 
-public class LoanView implements Builder<Region> {
-    
+import views.dashboard.ViewDashboard;
+
+public class LoanView extends ViewDashboard {
+
     public LoanView(){
-
-    }
-
-    @Override
-    public Region build() {
-        // TODO Auto-generated method stub
-       return new Region();
+       super("loan");
     }
 
 }

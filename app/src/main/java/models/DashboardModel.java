@@ -1,41 +1,45 @@
 package models;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
+/**
+ * Modelo para el dashboard que gestiona la vista actual del sistema.
+ */
 public class DashboardModel {
-    private final SimpleBooleanProperty buyProperty = new SimpleBooleanProperty();
-    private final SimpleBooleanProperty loanProperty = new SimpleBooleanProperty();
-    private final SimpleBooleanProperty saleProperty = new SimpleBooleanProperty();
-    
-
-    public DashboardModel(){
-        buyProperty.set(false);
-        loanProperty.set(false);
-        saleProperty.set(false);
+    /**
+     * Enumeración de las vistas disponibles en el dashboard.
+     */
+    public enum Views {
+        BUY, LOAN, SALE
     }
 
-    public BooleanProperty buyProperty(){
+    private final ObjectProperty<Views> currentView = new SimpleObjectProperty<>(Views.BUY);
 
-        return buyProperty;
+    /**
+     * Obtiene la propiedad de la vista actual.
+     *
+     * @return La propiedad de la vista actual.
+     */
+    public ObjectProperty<Views> currentViewProperty() {
+        return currentView;
     }
 
-    public BooleanProperty loanProperty(){
-
-        return loanProperty;
+    /**
+     * Obtiene la vista actual.
+     *
+     * @return La vista actual del dashboard.
+     */
+    public Views getCurrentView() {
+        return currentView.get();
     }
-    
-    public BooleanProperty saleProperty(){
 
-        return saleProperty;
+    /**
+     * Establece una nueva vista en el dashboard.
+     *
+     * @param view La vista a establecer.
+     */
+    public void setCurrentView(Views view) {
+        currentView.set(view);
     }
-
-
-  
-   public static enum Views{
-        BUY,
-        LOAN,
-        SALE
-    }
-    
 }

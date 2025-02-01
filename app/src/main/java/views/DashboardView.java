@@ -1,8 +1,13 @@
 package views;
 
+import java.util.HashMap;
+import java.util.function.Function;
+
+
 import core.ResourceLoader;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,26 +20,40 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Builder;
+import models.DashboardModel.Views;
 import views.dashboard.Option;
 import views.dashboard.SideBar;
 import views.dashboard.TopBar;
 import views.utils.Responsive;
 
-import java.util.HashMap;
-import java.util.function.Function;
 
 public class DashboardView implements Builder<Region> {
 
-    private final Region buyView ;
-    private final Region loanView ;
-    private final Region saleView ;
+    private final Region buyView;
+    private final Region loanView;
+    private final Region saleView;
+    private final TopBar topBar;
+
+    private final  HashMap<String,Function<?,?>> service;
 
 
-
-    public DashboardView(Region buyView, Region loanView, Region saleView, HashMap<String, Function<?,?>> service ){
+    public DashboardView(Region buyView, Region loanView, Region saleView, HashMap<String,Function<?,?>> service ){
+       
         this.buyView = buyView;
         this.loanView = loanView;
         this.saleView = saleView;
+        this.topBar = new TopBar();
+        this.topBar.currentView().set("Dasboard");
+        this.service = service;
+
+        showView = (Function<Views, Void>) this.service.get("showView");
+    }
+
+    
+    @Override
+    public Region build() {
+       
+        return (Region) mainContainer();
     }
 
     private Node mainContainer(){
@@ -50,11 +69,26 @@ public class DashboardView implements Builder<Region> {
     }
 
     private Node createSideBar(){
+        Node buy = new Option("Compra", "shopping-cart.png","shopping-cart-h.png").createOption();
+        buy.setOnMouseClicked(evt ->{
+            showView.apply(Views.BUY);
+            topBar.currentView().set("Compra");
+        });
+        Node loan = new Option("Prestamo", "loan.png","loan-h.png").createOption();
+        loan.setOnMouseClicked(evt ->{
+            showView.apply(Views.LOAN);
+            topBar.currentView().set("Prestamo");
+        });
 
+        Node sale = new Option("Venta", "price-tag.png","price-tag-h.png").createOption();
+        sale.setOnMouseClicked(evt ->{
+            showView.apply(Views.SALE);
+            topBar.currentView().set("Venta");
+        });
+        
+        
         VBox container =(VBox) new SideBar(
-            new Option("Compra", "shopping-cart.png","shopping-cart-h.png").createOption(),
-           new Option("Prestamo", "loan.png","loan-h.png").createOption(),
-           new Option("Venta", "price-tag.png","price-tag-h.png").createOption()
+            buy, loan,sale
         ).createSideBar();
    
         return container;
@@ -62,7 +96,7 @@ public class DashboardView implements Builder<Region> {
     
     private Node createContentContainer(){
        VBox innerContentContainer =  new VBox(
-            new TopBar().createTopBar(),
+           topBar.createTopBar(),
             createContent()
         );
         Responsive.bindingToParentWidth(innerContentContainer, 1);
@@ -85,10 +119,12 @@ public class DashboardView implements Builder<Region> {
         return container;
     }
 
-    @Override
-    public Region build() {
-       
-        return (Region) mainContainer();
-    }
+    /**
+     * Services
+     */
+
+    private final Function<Views, Void> showView;
+  
+
     
 }

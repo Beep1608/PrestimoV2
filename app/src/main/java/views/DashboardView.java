@@ -26,6 +26,7 @@ public class DashboardView implements Builder<Region> {
     private final Region buyView;
     private final Region loanView;
     private final Region saleView;
+    private final Region metalSalesView;
     private final TopBar topBar;
     private final HashMap<String, Function<?, ?>> service;
     private final DashboardModel model;
@@ -40,10 +41,12 @@ public class DashboardView implements Builder<Region> {
      * @param service  Mapa de servicios disponibles.
      * @param model    Modelo del dashboard.
      */
-    public DashboardView(Region buyView, Region loanView, Region saleView, HashMap<String, Function<?, ?>> service, DashboardModel model) {
+    public DashboardView(Region buyView, Region loanView, Region saleView, Region metalSalesView,
+                         HashMap<String, Function<?, ?>> service, DashboardModel model) {
         this.buyView = buyView;
         this.loanView = loanView;
         this.saleView = saleView;
+        this.metalSalesView = metalSalesView;
         this.topBar = new TopBar();
         this.topBar.currentView().set("Dashboard");
         this.service = service;
@@ -95,7 +98,13 @@ public class DashboardView implements Builder<Region> {
             topBar.currentView().set("Venta");
         });
 
-        return new SideBar(buy, loan, sale).createSideBar();
+        // Creamos el node para las metal sales
+        Node metalSales = new Option("Ventas Metales", "profit.png","profit.png" ).createOption();
+        metalSales.setOnMouseClicked(evt -> {
+            showView(Views.METALSALES);
+            topBar.currentView().set("Ventas Metales");
+        });
+        return new SideBar(buy, loan, sale, metalSales).createSideBar();
     }
 
     /**
@@ -152,6 +161,7 @@ public class DashboardView implements Builder<Region> {
             case BUY -> buyView;
             case LOAN -> loanView;
             case SALE -> saleView;
+            case METALSALES -> metalSalesView;
         };
     }
 

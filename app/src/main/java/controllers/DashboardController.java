@@ -17,6 +17,7 @@ public class DashboardController {
     private final BuyController buyController;
     private final LoanController loanController;
     private final SaleController saleController;
+    private final MetalSalesController metalSalesController;
     private final HashMap<String, Function<?, ?>> service = new HashMap<>();
 
     /**
@@ -27,6 +28,7 @@ public class DashboardController {
         this.model = new DashboardModel();
         this.loanController = new LoanController();
         this.saleController = new SaleController();
+        this.metalSalesController = new MetalSalesController();
 
         service.put("showView", this::showView);
 
@@ -34,6 +36,7 @@ public class DashboardController {
                 buyController.getView(),
                 loanController.getView(),
                 saleController.getView(),
+                metalSalesController.getView(),
                 service,
                 model
         );

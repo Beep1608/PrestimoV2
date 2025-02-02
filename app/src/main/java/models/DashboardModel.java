@@ -11,7 +11,7 @@ public class DashboardModel {
      * Enumeración de las vistas disponibles en el dashboard.
      */
     public enum Views {
-        BUY, LOAN, SALE
+        BUY, LOAN, SALE, METALSALES
     }
 
     private final ObjectProperty<Views> currentView = new SimpleObjectProperty<>(Views.BUY);

@@ -1,5 +1,6 @@
 package views;
 
+import core.ResourceLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -33,7 +34,7 @@ public class MetalSalesView implements Builder<Region> {
         VBox root = new VBox(createSearchBar(), createSalesTable());
         root.setSpacing(20);
         root.setPadding(new Insets(20));
-        root.getStylesheets().add("/metalSales.css");
+        root.getStylesheets().add(ResourceLoader.load("/css/dashboard/views/metal.css"));
         root.getStyleClass().add("metal-sales-view");
         Responsive.bindingToParent(root, 1, 1);
 

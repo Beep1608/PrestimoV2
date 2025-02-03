@@ -3,7 +3,6 @@ package views;
 import java.util.HashMap;
 import java.util.function.Function;
 
-import core.ResourceLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -17,6 +16,7 @@ import models.DashboardModel.Views;
 import views.dashboard.Option;
 import views.dashboard.SideBar;
 import views.dashboard.TopBar;
+import views.utils.ResourceLoader;
 import views.utils.Responsive;
 
 /**
@@ -80,26 +80,26 @@ public class DashboardView implements Builder<Region> {
      * @return Nodo que representa la barra lateral.
      */
     private Node createSideBar() {
-        Node buy = new Option("Compra", "shopping-cart.png", "shopping-cart-h.png").createOption();
+        Node buy = new Option("Compra", "/dashboard/shopping-cart.png", "/dashboard/shopping-cart-h.png").createOption();
         buy.setOnMouseClicked(evt -> {
             showView(Views.BUY);
             topBar.currentView().set("Compra");
         });
 
-        Node loan = new Option("Prestamo", "loan.png", "loan-h.png").createOption();
+        Node loan = new Option("Prestamo", "/dashboard/loan.png", "/dashboard/loan-h.png").createOption();
         loan.setOnMouseClicked(evt -> {
             showView(Views.LOAN);
             topBar.currentView().set("Préstamo");
         });
 
-        Node sale = new Option("Venta", "price-tag.png", "price-tag-h.png").createOption();
+        Node sale = new Option("Venta", "/dashboard/price-tag.png", "/dashboard/price-tag-h.png").createOption();
         sale.setOnMouseClicked(evt -> {
             showView(Views.SALE);
             topBar.currentView().set("Venta");
         });
 
         // Creamos el node para las metal sales
-        Node metalSales = new Option("Ventas Metales", "profit.png","profit.png" ).createOption();
+        Node metalSales = new Option("Ventas Metales", "/dashboard/profit.png","/dashboard/profit.png" ).createOption();
         metalSales.setOnMouseClicked(evt -> {
             showView(Views.METALSALES);
             topBar.currentView().set("Ventas Metales");

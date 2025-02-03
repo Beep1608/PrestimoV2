@@ -1,6 +1,5 @@
 package views;
 
-import core.ResourceLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -11,6 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Builder;
 import models.local.MetalSales;
+import views.utils.ResourceLoader;
 import views.utils.Responsive;
 
 import java.util.HashMap;

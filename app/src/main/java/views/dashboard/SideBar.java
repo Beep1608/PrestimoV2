@@ -1,10 +1,10 @@
 package views.dashboard;
 
 
-import core.ResourceLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
+import views.utils.ResourceLoader;
 import views.utils.Responsive;
 
 public class SideBar {

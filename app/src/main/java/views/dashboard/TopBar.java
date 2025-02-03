@@ -1,6 +1,5 @@
 package views.dashboard;
 
-import core.ResourceLoader;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringPropertyBase;
 import javafx.geometry.Pos;
@@ -10,6 +9,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import views.utils.ResourceLoader;
 import views.utils.Responsive;
 
 public class TopBar {

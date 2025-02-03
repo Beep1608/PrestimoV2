@@ -1,16 +1,25 @@
 package controllers;
 
 import javafx.scene.layout.Region;
+import models.BuyModel;
 import views.BuyView;
+import views.buy.BuyElectronics;
+import views.buy.BuyJelwelry;
+import views.buy.BuyWhiteGoods;
 
 public class BuyController {
 
     private final BuyView view;
+    private final BuyModel model;
     private final CardsOptionController cards;
+
     public BuyController(){
-        this.cards = new CardsOptionController(this::nihao,this::nihao,this::nihao);
+        this.model =new BuyModel();
+        this.cards = new CardsOptionController(model::setCurrentView);
         //TODO: Agregar tabla
-        this.view  = new BuyView(cards.getView(), new Region());
+        this.view  = new BuyView(cards.getView(), new Region()/*Table */,
+        new BuyElectronics().build(), new BuyWhiteGoods().build(), new BuyJelwelry().build(),model );
+        
     
     }
     
@@ -18,6 +27,8 @@ public class BuyController {
         System.out.println("Nihao");
         return null;
     }
+
+   
     public Region getView(){
         return view.build();
     }

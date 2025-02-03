@@ -1,6 +1,5 @@
 package views.dashboard;
 
-import core.ResourceLoader;
 import javafx.animation.FillTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import views.utils.ResourceLoader;
 
 public class Option {
 
@@ -32,18 +32,11 @@ public class Option {
         this.text = new Text(text);
         this.resource =resource;
         this.selectedResource = selectedResource;
-        this.icon = makeIcon(this.resource);
+        this.icon = ResourceLoader.makeIcon(resource, 24);
         this.container.getStylesheets().add(ResourceLoader.load("/css/dashboard/option.css"));
     }
 
-    private ImageView makeIcon(String resource){
-         Image image = new Image(ResourceLoader.load("/images/dashboard/"+resource), 
-        24, 
-        24,
-         true, 
-         true);
-         return new ImageView(image);
-    }
+   
     public Node createOption(){
         text.setFont(font);
         HBox containerText = new HBox(text);
@@ -63,12 +56,12 @@ public class Option {
         container.setOnMouseEntered(event ->{
            
             containerIcon.getChildren().clear();
-            containerIcon.getChildren().add(makeIcon(selectedResource));
+            containerIcon.getChildren().add(ResourceLoader.makeIcon(selectedResource, 24));
             text.setFill(Color.WHITE);
         });
         container.setOnMouseExited(event -> {
             containerIcon.getChildren().clear();
-            containerIcon.getChildren().add(makeIcon(resource));
+            containerIcon.getChildren().add(ResourceLoader.makeIcon(resource,24));
             text.setFill(Color.BLACK);
         });
       container.getStyleClass().add("container");

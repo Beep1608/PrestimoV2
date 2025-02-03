@@ -1,8 +1,10 @@
 package controllers;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import javafx.scene.layout.Region;
+import models.OptionModel.Views;
 import views.CardsOptionView;
 
 public class CardsOptionController {
@@ -49,18 +51,18 @@ public class CardsOptionController {
                 "🔹 Joyas personalizadas";
                 
 
-    public CardsOptionController(Supplier<Void>actionElectronics,Supplier<Void>actionWhiteGoods, Supplier<Void>actionJewelry ){
+    public CardsOptionController(Consumer<Views>setCurrentView ){
         this.electronics = new CardOptionController(electroncisResource, electronicsTitle,electroncisDescription);
         this.electronics.getView().setOnMouseClicked(evt->{
-            actionElectronics.get();
+            setCurrentView.accept(Views.ELECTRONICS);
         });
         this.whiteGoods = new CardOptionController(whiteGoodsResource, whiteGoodsTitle, whiteGoodsDescription);
         this.whiteGoods.getView().setOnMouseClicked(evt->{
-            actionWhiteGoods.get();
+            setCurrentView.accept(Views.WHITEGOODS);
         });
         this.jewelry = new CardOptionController(jewelryResource, jewelryTitle, jewelryDescription);
         this.jewelry.getView().setOnMouseClicked(evt->{
-            actionJewelry.get();
+            setCurrentView.accept(Views.JELWERY);
         });
         this.view = new CardsOptionView(electronics.getView(), whiteGoods.getView(), jewelry.getView());
         

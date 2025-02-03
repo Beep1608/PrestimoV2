@@ -1,0 +1,120 @@
+/* Estilo general de la vista */
+.metal-sales-view {
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+/* Estilo del buscador */
+.search-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.3, 0, 2);
+}
+
+.search-bar Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.search-bar TextField {
+    -fx-pref-width: 200px;
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #cccccc;
+}
+
+.search-bar Button {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 4px;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}
+
+.search-bar Button:hover {
+    -fx-background-color: #005a9e;
+}
+
+.search-bar Button:pressed {
+    -fx-background-color: #003f75;
+}
+
+/* Estilo de la tabla */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.3, 0, 2);
+}
+
+.table-view .column-header {
+    -fx-background-color: #f1f1f1;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-border-color: #dcdcdc;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+.table-view .cell {
+    -fx-padding: 8px;
+    -fx-text-fill: #444444;
+    -fx-border-color: transparent;
+    -fx-alignment: center-left;
+}
+
+.table-view .cell:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Estilo para placeholders en la tabla */
+.table-view .placeholder {
+    -fx-font-size: 14px;
+    -fx-text-fill: #888888;
+    -fx-alignment: center;
+}
+
+/* Botones */
+.button {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 14px;
+    -fx-border-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #005a9e;
+}
+
+.button:pressed {
+    -fx-background-color: #003f75;
+}
+
+/* Estilo general del texto */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Animaciones suaves */
+.search-bar TextField, .button {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 3, 0.3, 0, 2);
+    -fx-transition: 0.3s ease-in-out;
+}
+
+.search-bar TextField:focused {
+    -fx-border-color: #0078d7;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 120, 215, 0.4), 3, 0.3, 0, 2);
+}

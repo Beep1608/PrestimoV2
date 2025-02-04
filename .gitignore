@@ -6,4 +6,4 @@ build
 app/build.gradle
 /scenicview
 .idea
-bin
+app/bin

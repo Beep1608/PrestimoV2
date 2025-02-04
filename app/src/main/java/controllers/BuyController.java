@@ -4,7 +4,7 @@ import javafx.scene.layout.Region;
 import models.BuyModel;
 import views.BuyView;
 import views.buy.BuyElectronics;
-import views.buy.BuyJelwelry;
+import views.buy.BuyJewelry;
 import views.buy.BuyWhiteGoods;
 
 public class BuyController {
@@ -18,7 +18,7 @@ public class BuyController {
         this.cards = new CardsOptionController(model::setCurrentView);
         //TODO: Agregar tabla
         this.view  = new BuyView(cards.getView(), new Region()/*Table */,
-        new BuyElectronics().build(), new BuyWhiteGoods().build(), new BuyJelwelry().build(),model );
+        new BuyElectronics().build(), new BuyWhiteGoods().build(), new BuyJewelry().build(),model );
         
     
     }

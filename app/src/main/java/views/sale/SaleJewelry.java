@@ -4,7 +4,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Builder;
 
-public class SaleJelwelry implements Builder<Region>{
+public class SaleJewelry implements Builder<Region>{
     private final VBox container = new VBox();
 
     @Override

@@ -1,5 +1,8 @@
 package views.buy;
 
+import java.util.HashMap;
+import java.util.function.Supplier;
+
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Region;
@@ -10,8 +13,10 @@ import models.buy.BuyJewelryModel;
 public class BuyJewelry implements Builder<Region>{
     private final VBox container = new VBox();
     private final BuyJewelryModel model;
-    public BuyJewelry(){
-        this.model = new BuyJewelryModel();
+    private final HashMap<String, Supplier<Void>> services;
+    public BuyJewelry(BuyJewelryModel model,HashMap<String, Supplier<Void>> services){
+        this.model = model;
+        this.services = services;
     }
     @Override
     public Region build() {

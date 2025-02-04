@@ -7,6 +7,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import models.percentages.PercentagesBuyJewelry;
+import models.percentages.PercentagesCaratageJewelry;
 
 public class BuyJewelryModel {
 
@@ -24,6 +26,9 @@ public class BuyJewelryModel {
     private final SimpleDoubleProperty price_gr_final  =new SimpleDoubleProperty(0); //Calculado
     private final SimpleDoubleProperty max_purchase_amount = new SimpleDoubleProperty(0); //Calculado
 
+    private final PercentagesBuyJewelry percentages_buy = new PercentagesBuyJewelry();
+    private final PercentagesCaratageJewelry percentages_caratage = new PercentagesCaratageJewelry();
+
 
 
     //GUI /*Las siguientes propiedades afectan el comportamiento de la interfaz correspondiente a la compra de joyas */
@@ -33,11 +38,13 @@ public class BuyJewelryModel {
     private final SimpleBooleanProperty selectors_purchase_node = new SimpleBooleanProperty(false);
 
     public BuyJewelryModel(){
+    
 
         selectors_purchase_node.bind(Bindings.createBooleanBinding(
             () -> !(caratage_node.get() && weight_node.get()), // Condición: ambos deben ser verdaderos
             caratage_node, weight_node // Observa cambios en estas propiedades
         ));
+
     }
 
     public IntegerProperty caratage(){
@@ -48,6 +55,10 @@ public class BuyJewelryModel {
     }
     public DoubleProperty price_onz(){
         return price_onz;
+    }
+
+    public DoubleProperty conversion_factor(){
+        return conversion_factor;
     }
 
     public DoubleProperty price_gr_inter(){
@@ -86,6 +97,14 @@ public class BuyJewelryModel {
         return max_purchase_amount;
     }
 
+    public PercentagesBuyJewelry percentages_buy(){
+        return percentages_buy;
+    }
+
+    public PercentagesCaratageJewelry percentages_caratage(){
+        return percentages_caratage;
+    }
+
     //GUI
 
     public BooleanProperty caratage_node(){
@@ -103,6 +122,8 @@ public class BuyJewelryModel {
     public BooleanProperty selectors_purchase_node(){
         return selectors_purchase_node;
     }
+
+
 
     
 }

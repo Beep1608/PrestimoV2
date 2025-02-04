@@ -5,7 +5,7 @@ import models.LoanModel;
 import views.BuyView;
 import views.LoanView;
 import views.loan.LoanElectronics;
-import views.loan.LoanJelwelry;
+import views.loan.LoanJewelry;
 import views.loan.LoanWhiteGoods;
 
 public class LoanController {
@@ -18,7 +18,7 @@ public class LoanController {
         
         //TODO: Agregar tabla
         this.view  = new LoanView(cards.getView(), new Region()/*Table */,
-        new LoanElectronics().build(), new LoanWhiteGoods().build(), new LoanJelwelry().build(),model);
+        new LoanElectronics().build(), new LoanWhiteGoods().build(), new LoanJewelry().build(),model);
     }
 
     private Void nihao(){

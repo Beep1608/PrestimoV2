@@ -5,7 +5,7 @@ import models.SaleModel;
 import views.BuyView;
 import views.SaleView;
 import views.sale.SaleElectronics;
-import views.sale.SaleJelwelry;
+import views.sale.SaleJewelry;
 import views.sale.SaleWhiteGoods;
 
 public class SaleController {
@@ -17,7 +17,7 @@ public class SaleController {
         this.cards = new CardsOptionController(model::setCurrentView);
         //TODO: Agregar tabla
         this.view  = new SaleView(cards.getView(), new Region()/*Table */,
-        new SaleElectronics().build(), new SaleWhiteGoods().build(), new SaleJelwelry().build(), model);
+        new SaleElectronics().build(), new SaleWhiteGoods().build(), new SaleJewelry().build(), model);
     }
     private Void nihao(){
         System.out.println("Nihao");

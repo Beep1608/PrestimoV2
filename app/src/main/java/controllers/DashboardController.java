@@ -3,6 +3,8 @@ package controllers;
 import java.util.HashMap;
 import java.util.function.Function;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.layout.Region;
 import models.DashboardModel;
 import models.DashboardModel.Views;
@@ -19,16 +21,19 @@ public class DashboardController {
     private final SaleController saleController;
     private final MetalSalesController metalSalesController;
     private final HashMap<String, Function<?, ?>> service = new HashMap<>();
-
+    private final StringProperty searchText = new SimpleStringProperty("");
     /**
      * Constructor del DashboardController. Inicializa el modelo y las vistas.
      */
     public DashboardController() {
+        
+        this.metalSalesController = new MetalSalesController(searchText);
         this.buyController = new BuyController();
-        this.model = new DashboardModel();
         this.loanController = new LoanController();
         this.saleController = new SaleController();
-        this.metalSalesController = new MetalSalesController();
+        
+        this.model = new DashboardModel();
+        
 
         service.put("showView", this::showView);
 
@@ -38,7 +43,8 @@ public class DashboardController {
                 saleController.getView(),
                 metalSalesController.getView(),
                 service,
-                model
+                model, 
+                searchText
         );
     }
 

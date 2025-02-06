@@ -1,5 +1,6 @@
 package views.dashboard;
 
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -17,8 +18,14 @@ public class SearchBar {
     private final String resource = "search.png";
     private final String selectedResource = "search-h.png";
     private final HBox  container;
-    public SearchBar(){
+    private final TextField textField;
+    
+
+    public SearchBar(StringProperty searchTextProperty){
         this.container = new HBox();
+        this.textField = new TextField();
+
+        textField.textProperty().bindBidirectional(searchTextProperty);
         container.getStylesheets().add(ResourceLoader.load("/css/dashboard/searchbar.css"));
     }
 
@@ -35,7 +42,6 @@ public class SearchBar {
     }
 
     private Node createTextField(){
-        TextField textField = new TextField();
         textField.getStyleClass().add("text-field");
         textField.setPrefHeight(height);
         textField.setPrefWidth(widthField);
@@ -76,6 +82,8 @@ public class SearchBar {
          return new ImageView(image);
     }
 
-
+    public TextField getTextField() {
+        return textField;
+    }
     
 }

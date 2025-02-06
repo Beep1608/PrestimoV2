@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import javafx.concurrent.Task;
 import javafx.scene.layout.Region;
 import javafx.util.Builder;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -18,11 +19,10 @@ public class MetalSalesController {
     private final Builder<Region> metalSalesView;
     private final MetalSales model;
 
-
-    public MetalSalesController(){
+    public MetalSalesController(StringProperty searchText) {
         this.model = new MetalSales();
         HashMap<String, Consumer<Runnable>> map =new HashMap<String, Consumer<Runnable>>();
-        this.metalSalesView = new MetalSalesView(model, map);
+        this.metalSalesView = new MetalSalesView(model, map, searchText);
     }
 
     public Region getView() {
@@ -38,7 +38,7 @@ public class MetalSalesController {
         };
 
         loadTask.setOnSucceeded(e -> {
-            ((MetalSalesView) metalSalesView).comprasList.setAll(loadTask.getValue());
+            ((MetalSalesView) metalSalesView).getSalesTable().setAll(loadTask.getValue());
         });
 
         new Thread(loadTask).start();

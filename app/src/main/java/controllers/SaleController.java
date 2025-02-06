@@ -2,7 +2,6 @@ package controllers;
 
 import javafx.scene.layout.Region;
 import models.SaleModel;
-import views.BuyView;
 import views.SaleView;
 import views.sale.SaleElectronics;
 import views.sale.SaleJewelry;

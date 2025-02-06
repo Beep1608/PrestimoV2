@@ -1,7 +1,6 @@
 package controllers;
 
 import javafx.scene.layout.Region;
-import views.DashboardView;
 import views.MainView;
 
 public class MainController {

@@ -5,10 +5,14 @@ import java.util.function.Supplier;
 
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.SkinBase;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Builder;
 import models.buy.BuyJewelryModel;
+import views.utils.ResourceLoader;
 
 public class BuyJewelry implements Builder<Region>{
     private final VBox container = new VBox();
@@ -17,6 +21,7 @@ public class BuyJewelry implements Builder<Region>{
     public BuyJewelry(BuyJewelryModel model,HashMap<String, Supplier<Void>> services){
         this.model = model;
         this.services = services;
+        this.container.getStylesheets().add(ResourceLoader.load("/css/buy/jewelry.css"));
     }
     @Override
     public Region build() {
@@ -26,9 +31,12 @@ public class BuyJewelry implements Builder<Region>{
     }
 private Node createCaratageOptions(){
         ComboBox<String> options = new ComboBox<>();
+        options.getStyleClass().add("combo-box");
+       options.setPromptText("Kilataje");
+        
         options.getItems().addAll("8k","10k","12k","14k","16k","18k","20k","22k","24k");
-        options.setMinWidth(100);
-        options.setMaxWidth(200);
+        options.setMinWidth(200);
+        options.setMaxWidth(300);
         options.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 model.caratage_node().set(true);

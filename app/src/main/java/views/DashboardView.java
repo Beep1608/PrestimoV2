@@ -3,6 +3,7 @@ package views;
 import java.util.HashMap;
 import java.util.function.Function;
 
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -14,6 +15,7 @@ import javafx.util.Builder;
 import models.DashboardModel;
 import models.DashboardModel.Views;
 import views.dashboard.Option;
+import views.dashboard.SearchBar;
 import views.dashboard.SideBar;
 import views.dashboard.TopBar;
 import views.utils.ResourceLoader;
@@ -42,12 +44,12 @@ public class DashboardView implements Builder<Region> {
      * @param model    Modelo del dashboard.
      */
     public DashboardView(Region buyView, Region loanView, Region saleView, Region metalSalesView,
-                         HashMap<String, Function<?, ?>> service, DashboardModel model) {
+                         HashMap<String, Function<?, ?>> service, DashboardModel model, StringProperty searchText) {
         this.buyView = buyView;
         this.loanView = loanView;
         this.saleView = saleView;
         this.metalSalesView = metalSalesView;
-        this.topBar = new TopBar();
+        this.topBar = new TopBar(searchText);
         this.topBar.currentView().set("Dashboard");
         this.service = service;
         this.model = model;
@@ -172,5 +174,9 @@ public class DashboardView implements Builder<Region> {
      */
     private void showView(Views view) {
         model.setCurrentView(view);
+    }
+
+    public SearchBar getSearchBar() {
+        return topBar.getSearchBar();
     }
 }

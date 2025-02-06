@@ -1,6 +1,7 @@
 package views.dashboard;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.property.StringPropertyBase;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -16,8 +17,11 @@ public class TopBar {
     private final double height = 60;
     private final HBox container;
     private final SimpleStringProperty currentView  = new SimpleStringProperty();
-    public TopBar(){
+    private final SearchBar searchBar;
+
+    public TopBar(StringProperty searchTextProperty){
         this.container = new HBox();
+        this.searchBar = new SearchBar(searchTextProperty);
         container.getStylesheets().add(ResourceLoader.load("/css/dashboard/topbar.css"));
     }
 
@@ -26,9 +30,9 @@ public class TopBar {
        container.setPrefHeight(height);
        
       
-       HBox searchBar =(HBox) new SearchBar().createSearchBar();
-       container.getChildren().addAll(createTitleContainer(),searchBar);
-       container.setHgrow(searchBar, Priority.ALWAYS);
+       HBox searchBarNode =(HBox) searchBar.createSearchBar();
+       container.getChildren().addAll(createTitleContainer(),searchBarNode);
+       container.setHgrow(searchBarNode, Priority.ALWAYS);
 
        //container.setSpacing(200);
        
@@ -52,4 +56,8 @@ public class TopBar {
         return currentView;
     }
     
+    // Debemos obtener la referencia de la barra de busqueda
+    public SearchBar getSearchBar(){
+        return searchBar;
+    }
 }

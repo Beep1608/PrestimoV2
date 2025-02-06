@@ -9,7 +9,6 @@ import javafx.scene.layout.Region;
 import models.DashboardModel;
 import models.DashboardModel.Views;
 import views.DashboardView;
-import views.dashboard.SearchBar;
 
 /**
  * Controlador para gestionar el dashboard y sus vistas.

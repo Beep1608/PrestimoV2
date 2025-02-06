@@ -39,6 +39,11 @@ public class MetalSalesView implements Builder<Region> {
         this.searchText.addListener((observable, oldValue, newValue) -> filterTable(newValue));
     }
 
+    /**
+     * Crea el contenedor principal de la vista de compras de metal.
+     *
+     * @return Nodo que representa el contenedor principal.
+     */
     @Override
     public Region build() {
         VBox root = new VBox(createSalesTable());
@@ -52,6 +57,11 @@ public class MetalSalesView implements Builder<Region> {
         return root;
     }
 
+    /**
+     * Crea la tabla de ventas de metales.
+     * 
+     * @return La tabla de ventas de metales.
+     */
     @SuppressWarnings("unchecked")
     private Node createSalesTable() {
         salesTable = new TableView<>();
@@ -74,6 +84,11 @@ public class MetalSalesView implements Builder<Region> {
         return salesTable;
     }
 
+    /**
+      * Carga los datos desde el modelo y los muestra en la tabla.
+      * 
+      * Aplica el filtro de busqueda actualizado.
+    */
     public void loadSalesData() {
         comprasList.setAll(model.getMetalSalesList());  // Cargar datos desde el modelo
         filterTable(searchText.get());  // Aplicar filtro inicial
@@ -94,6 +109,12 @@ public class MetalSalesView implements Builder<Region> {
         });
     }
 
+    /**
+     * Retorna la lista de compras de metales mostradas en la tabla.
+     * La lista puede ser vacia si no hay datos cargados.
+     *
+     * @return la lista de compras de metales
+     */
     public ObservableList<MetalSales> getSalesTable() {
         return comprasList;
     }

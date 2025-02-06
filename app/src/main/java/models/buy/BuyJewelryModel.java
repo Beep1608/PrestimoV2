@@ -39,6 +39,8 @@ public class BuyJewelryModel {
     private final SimpleBooleanProperty weight_node = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty selectors_caratage_node = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty selectors_purchase_node = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty weight_field_node = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty manual_weight_node = new SimpleBooleanProperty(true);
 
     public BuyJewelryModel(){
     
@@ -130,6 +132,14 @@ public class BuyJewelryModel {
 
     public BooleanProperty selectors_purchase_node(){
         return selectors_purchase_node;
+    }
+
+    public BooleanProperty weight_field_node(){
+        return weight_field_node;
+    }
+
+    public BooleanProperty manual_weight_node(){
+        return manual_weight_node;
     }
 
 

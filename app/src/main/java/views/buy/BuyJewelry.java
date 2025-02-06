@@ -3,9 +3,11 @@ package views.buy;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
@@ -32,6 +34,7 @@ public class BuyJewelry implements Builder<Region>{
     public Region build() {
         container.getChildren().addAll(  createOptionsContainer(), createWeightFieldContainer());
         Responsive.bindingToParent(container, 1);
+        container.setSpacing(20);
         container.setPadding(new Insets(50));
         return container;
        
@@ -127,16 +130,35 @@ public class BuyJewelry implements Builder<Region>{
     }
 
     private Node createWeightFieldContainer(){
-        VBox container = new VBox(createWeightField());
-
+        HBox container = new HBox(createWeightField(), createButtonManual());
+        container.setAlignment(Pos.CENTER);
+        container.setSpacing(100);
         return container;
     }
 
     private Node createWeightField(){
         TextField field = new TextField();
         field.getStyleClass().add("weight");
-        field.setMaxWidth(200);
+        field.setMinWidth(200);
+        field.setMinHeight(30);
+        field.disableProperty().bind(model.weight_field_node());
         return field;
+    }
+
+    private Node createButtonManual(){
+        Button button = new Button("Ingresar peso manual");
+        button.setMinWidth(200);
+        button.setMinHeight(30);
+        button.getStyleClass().add("button-manual");
+        button.setOnMouseClicked(evt ->{
+            model.weight_field_node().set(false);
+        });
+        return button;
+    }
+    private Node createButtonImages(){
+        Button button = new Button("Tomar fotos");
+
+        return button;
     }
 
 

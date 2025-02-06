@@ -7,11 +7,13 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import models.percentages.PercentagesBuyJewelry;
 import models.percentages.PercentagesCaratageJewelry;
 
 public class BuyJewelryModel {
 
+    private final SimpleStringProperty metal = new SimpleStringProperty();
     private final SimpleIntegerProperty caratage = new SimpleIntegerProperty(0);
     private final SimpleDoubleProperty weight = new SimpleDoubleProperty(0); //Automatico
     private final SimpleDoubleProperty price_onz = new SimpleDoubleProperty(54379.26); // Automatico
@@ -32,10 +34,11 @@ public class BuyJewelryModel {
 
 
     //GUI /*Las siguientes propiedades afectan el comportamiento de la interfaz correspondiente a la compra de joyas */
-    private final SimpleBooleanProperty caratage_node = new SimpleBooleanProperty(false);
-    private final SimpleBooleanProperty weight_node = new SimpleBooleanProperty(false);
-    private final SimpleBooleanProperty selectors_caratage_node = new SimpleBooleanProperty(false);
-    private final SimpleBooleanProperty selectors_purchase_node = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty metal_node = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty caratage_node = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty weight_node = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty selectors_caratage_node = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty selectors_purchase_node = new SimpleBooleanProperty(true);
 
     public BuyJewelryModel(){
     
@@ -47,6 +50,9 @@ public class BuyJewelryModel {
 
     }
 
+    public SimpleStringProperty metal(){
+        return metal;
+    }
     public IntegerProperty caratage(){
         return caratage;
     }
@@ -106,7 +112,10 @@ public class BuyJewelryModel {
     }
 
     //GUI
-
+    public BooleanProperty metal_node(){
+        return metal_node;
+    }
+    
     public BooleanProperty caratage_node(){
         return caratage_node;
     }

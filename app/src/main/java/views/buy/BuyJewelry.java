@@ -3,16 +3,21 @@ package views.buy;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Builder;
 import models.buy.BuyJewelryModel;
 import views.utils.ResourceLoader;
+import views.utils.Responsive;
 
 public class BuyJewelry implements Builder<Region>{
     private final VBox container = new VBox();
@@ -25,11 +30,53 @@ public class BuyJewelry implements Builder<Region>{
     }
     @Override
     public Region build() {
-        container.getChildren().addAll(createCaratageOptions());
+        container.getChildren().addAll(  createOptionsContainer(), createWeightFieldContainer());
+        Responsive.bindingToParent(container, 1);
+        container.setPadding(new Insets(50));
         return container;
        
     }
-private Node createCaratageOptions(){
+
+    private Node createOptionsContainer(){
+        HBox container = new HBox(createMetalsOptions(), createCaratageOptions());
+        container.setAlignment(Pos.CENTER);
+        container.setSpacing(100);
+        return container;
+    }
+
+
+    private Node createMetalsOptions(){
+        ComboBox<String> options = new ComboBox<>();
+        options.getStyleClass().add("combo-box");
+       options.setPromptText("Metal");
+        
+        options.getItems().addAll("Oro","Plata");
+        options.setMinWidth(200);
+        options.setMaxWidth(300);
+        options.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                model.metal_node().set(false);
+                switch(newValue){
+                    case "Oro":
+                    model.metal().set("Oro");
+                    
+                    break;
+                    case "Plata":
+                    model.metal().set("Plata");
+                   
+                    break;
+                    default:
+                    model.metal().set("nada");
+                    break;
+                    
+                }
+            }
+        });
+        
+        return options;
+    }
+
+    private Node createCaratageOptions(){
         ComboBox<String> options = new ComboBox<>();
         options.getStyleClass().add("combo-box");
        options.setPromptText("Kilataje");
@@ -39,43 +86,34 @@ private Node createCaratageOptions(){
         options.setMaxWidth(300);
         options.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                model.caratage_node().set(true);
+                model.caratage_node().set(false);
                 switch(newValue){
                     case "8k":
                     model.caratage().set(8);
-                    System.out.println( model.caratage().get());
                     break;
                     case "10k":
                     model.caratage().set(10);
-                    System.out.println( model.caratage().get());
                     break;
                     case "12k":
                     model.caratage().set(12);
-                    System.out.println( model.caratage().get());
                     break;
                     case "14k":
                     model.caratage().set(14);
-                    System.out.println( model.caratage().get());
                     break;
                     case "16k":
                     model.caratage().set(16);
-                    System.out.println( model.caratage().get());
                     break;
                     case "18k":
                     model.caratage().set(18);
-                    System.out.println( model.caratage().get());
                     break;
                     case "20k":
                     model.caratage().set(20);
-                    System.out.println( model.caratage().get());
                     break;
                     case "22k":
                     model.caratage().set(22);
-                    System.out.println( model.caratage().get());
                     break;
                     case "24k":
                     model.caratage().set(24);
-                    System.out.println( model.caratage().get());
                     break;
                     default:
                     model.caratage().set(0);
@@ -84,7 +122,21 @@ private Node createCaratageOptions(){
                 }
             }
         });
+        options.disableProperty().bind(model.metal_node());
         return options;
+    }
+
+    private Node createWeightFieldContainer(){
+        VBox container = new VBox(createWeightField());
+
+        return container;
+    }
+
+    private Node createWeightField(){
+        TextField field = new TextField();
+        field.getStyleClass().add("weight");
+        field.setMaxWidth(200);
+        return field;
     }
 
 

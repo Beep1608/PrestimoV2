@@ -32,21 +32,44 @@ public class BuyJewelry implements Builder<Region>{
     }
     @Override
     public Region build() {
-        container.getChildren().addAll(  createOptionsContainer(), createWeightFieldContainer());
+        container.getChildren().addAll(createMainContainer() );
         Responsive.bindingToParent(container, 1);
-        container.setSpacing(20);
-        container.setPadding(new Insets(50));
+        
         return container;
        
     }
 
-    private Node createOptionsContainer(){
-        HBox container = new HBox(createMetalsOptions(), createCaratageOptions());
-        container.setAlignment(Pos.CENTER);
-        container.setSpacing(100);
+    private Node createMainContainer(){
+        HBox container = new HBox(createMainLeftContainer(), createMainRightContainer());
+
         return container;
     }
 
+   
+    private Node createMainRightContainer(){
+        // TODO: Implementar vista para las imagenes
+        VBox container = new VBox();
+        Responsive.bindingToParentWidth(container, 0.5);
+        container.getStyleClass().add("main-right");
+        return container;
+    }
+
+    private Node createMainLeftContainer(){
+        VBox container = new VBox(createMetalsOptions(), createWeightContainer());
+        Responsive.bindingToParentWidth(container, 0.5);
+        container.setPadding(new Insets(100, 15, 0, 40));
+        container.getStyleClass().add("main-left");
+        container.setSpacing(50);
+
+        return container;
+    }
+
+    private Node createOptionsContainer(){
+        HBox container = new HBox(createMetalsOptions());
+        container.setAlignment(Pos.CENTER);
+        container.setSpacing(600);
+        return container;
+    }
 
     private Node createMetalsOptions(){
         ComboBox<String> options = new ComboBox<>();
@@ -54,8 +77,8 @@ public class BuyJewelry implements Builder<Region>{
        options.setPromptText("Metal");
         
         options.getItems().addAll("Oro","Plata");
-        options.setMinWidth(200);
-        options.setMaxWidth(300);
+        options.setMinWidth(500);
+        options.setMaxWidth(500);
         options.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 model.metal_node().set(false);
@@ -83,7 +106,6 @@ public class BuyJewelry implements Builder<Region>{
         ComboBox<String> options = new ComboBox<>();
         options.getStyleClass().add("combo-box");
        options.setPromptText("Kilataje");
-        
         options.getItems().addAll("8k","10k","12k","14k","16k","18k","20k","22k","24k");
         options.setMinWidth(200);
         options.setMaxWidth(300);
@@ -129,27 +151,51 @@ public class BuyJewelry implements Builder<Region>{
         return options;
     }
 
-    private Node createWeightFieldContainer(){
-        HBox container = new HBox(createWeightField(), createButtonManual());
-        container.setAlignment(Pos.CENTER);
-        container.setSpacing(100);
+    private Node createWeightContainer(){
+        VBox container = new VBox(createWeightField_CaratageContainer(),createContianerWeightButtons(),createCalculateButtonContainer());
+        Responsive.bindingToParentWidth(container, 1);
+        container.setSpacing(10);
+
+        return container;
+    }
+
+    private Node createWeightField_CaratageContainer(){
+        HBox container = new HBox(createWeightField(), createCaratageOptions());
+        container.setSpacing(50);
+
         return container;
     }
 
     private Node createWeightField(){
         TextField field = new TextField();
-        field.getStyleClass().add("weight");
-        field.setMinWidth(200);
+        field.getStyleClass().add("weight-field");
+        field.setMinWidth(250);
+        field.setMaxWidth(250);
         field.setMinHeight(30);
         field.disableProperty().bind(model.weight_field_node());
         return field;
     }
+    private Node createContianerWeightButtons(){
+        HBox container = new HBox(createButtonAutomatic(),createButtonManual());
+        container.setSpacing(20);
+        return container;
+    }
 
     private Node createButtonManual(){
         Button button = new Button("Ingresar peso manual");
-        button.setMinWidth(200);
+        button.setMinWidth(100);
         button.setMinHeight(30);
-        button.getStyleClass().add("button-manual");
+        button.getStyleClass().add("button-weight");
+        button.setOnMouseClicked(evt ->{
+            model.weight_field_node().set(false);
+        });
+        return button;
+    }
+     private Node createButtonAutomatic(){
+        Button button = new Button("Obtener peso automático");
+        button.setMinWidth(100);
+        button.setMinHeight(30);
+        button.getStyleClass().add("button-weight");
         button.setOnMouseClicked(evt ->{
             model.weight_field_node().set(false);
         });
@@ -158,6 +204,22 @@ public class BuyJewelry implements Builder<Region>{
     private Node createButtonImages(){
         Button button = new Button("Tomar fotos");
 
+        return button;
+    }
+
+    private Node createCalculateButtonContainer(){
+        VBox container = new VBox(createCalculateButton());
+        container.setPrefHeight(100);
+        container.setAlignment(Pos.BOTTOM_LEFT);
+        return container;
+    }
+
+    private Node createCalculateButton(){
+        Button button = new Button("Calcular compra");
+        button.setMinWidth(100);
+        button.setMinHeight(30);
+        button.getStyleClass().add("button-calculate");
+       
         return button;
     }
 

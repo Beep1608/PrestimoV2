@@ -19,3 +19,46 @@
     -fx-background-color: #007bff;
     -fx-text-fill: rgb(255, 255, 255);
 }
+
+.container{
+    -fx-background-color: #317dcf;
+}
+
+.weight-field{
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+    -fx-border-color: #3498db;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+
+.main-right{
+    -fx-background-color: #ff7575;
+}
+.main-left{
+}
+.button-weight{
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+ 
+}
+.button-weight:hover{
+    -fx-background-color: #f3f3f3;
+    -fx-text-fill: rgb(131, 131, 131);
+    -fx-cursor: hand;
+}
+.button-calculate{
+    -fx-background-color: #6aaf49;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-size: 20px;
+}
+
+.button-calculate:hover{
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-background-color: #4f6446;
+    -fx-cursor: hand;
+}

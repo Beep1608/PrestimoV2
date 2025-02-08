@@ -10,14 +10,28 @@ public class ResourceLoader {
     public ResourceLoader(){
 
     }
-    
+
+
+    /**
+     * Regresa un URL del path especificado donde ./ = "resources"
+     * @param String param
+     * @return {{@URL}}
+     */
     public static URL loadURL (String path){
         return ResourceLoader.class.getResource(path);
     }
 
+    
+
     public static String load(String path){
         return loadURL(path).toString();
     }
+
+     /**
+     * Carga el resoruce como {{@InputStream}} ./ = "resources"
+     * @param String param
+     * @return {{@URL}}
+     */
     public static InputStream loadStream(String name){
         return ResourceLoader.class.getResourceAsStream(name);
     }

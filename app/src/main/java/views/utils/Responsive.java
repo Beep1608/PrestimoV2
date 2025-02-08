@@ -1,5 +1,6 @@
 package views.utils;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
 public class Responsive {
@@ -39,6 +40,11 @@ public class Responsive {
                 container.prefHeightProperty().bind(((Region) newParent).heightProperty().multiply(percentageH));
           }
          });
+
+    }
+    
+    public static void makeResponsiveImg(ImageView img, double pW){
+
 
     }
     

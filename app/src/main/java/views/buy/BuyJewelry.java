@@ -13,6 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -48,7 +51,7 @@ public class BuyJewelry implements Builder<Region>{
    
     private Node createMainRightContainer(){
         // TODO: Implementar vista para las imagenes
-        VBox container = new VBox();
+        VBox container = new VBox(createButtonImages(), createImagesContainer());
         Responsive.bindingToParentWidth(container, 0.5);
         container.getStyleClass().add("main-right");
         return container;
@@ -224,6 +227,27 @@ public class BuyJewelry implements Builder<Region>{
     }
 
 
+    /**
+     * Images
+     */
+
+     private Node createImagesContainer(){
+        Node images= getImages();
+        GridPane container = new GridPane();
+        container.setConstraints(images, 2, 0);
+        container.getChildren().add(images);
+        return container;
+     }
+
+     private Node getImages(){
+        Image img = new Image(ResourceLoader.loadStream("/images/real-time/gatito.jpeg"));
+        ImageView image = new ImageView(img);
+        image.fitWidthProperty();
+        image.setPreserveRatio(true);
+        image.setSmooth(true);
+        image.setCache(true);
+        return image;
+     }
 
     
 }

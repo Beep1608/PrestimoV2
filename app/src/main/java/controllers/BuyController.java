@@ -1,9 +1,11 @@
 package controllers;
 
+
 import controllers.buy.BuyJewelryController;
 import javafx.application.Platform;
 import javafx.scene.layout.Region;
 import models.BuyModel;
+import models.OptionModel.Views;
 import views.BuyView;
 import views.buy.BuyElectronics;
 import views.buy.BuyJewelry;
@@ -17,7 +19,7 @@ public class BuyController {
     private final BuyJewelryController buyJewelryController;
     public BuyController(){
         this.model =new BuyModel();
-        this.buyJewelryController = new BuyJewelryController();
+        this.buyJewelryController = new BuyJewelryController(this::prev);
         this.cards = new CardsOptionController(model::setCurrentView);
         //TODO: Agregar tabla
         this.view  = new BuyView(cards.getView(), new Region()/*Table */,
@@ -31,6 +33,10 @@ public class BuyController {
     
     private Void nihao(){
         System.out.println("Nihao");
+        return null;
+    }
+    private Void prev(){
+        model.setCurrentView(Views.PARENT);
         return null;
     }
 

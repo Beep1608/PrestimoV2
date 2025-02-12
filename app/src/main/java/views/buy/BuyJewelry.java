@@ -1,6 +1,8 @@
 package views.buy;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.Supplier;
 
 
@@ -9,14 +11,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.SkinBase;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Builder;
@@ -28,18 +28,34 @@ public class BuyJewelry implements Builder<Region>{
     private final VBox container = new VBox();
     private final BuyJewelryModel model;
     private final HashMap<String, Supplier<Void>> services;
+    private final List<ImageView> images = new ArrayList<>();
     public BuyJewelry(BuyJewelryModel model,HashMap<String, Supplier<Void>> services){
         this.model = model;
         this.services = services;
         this.container.getStylesheets().add(ResourceLoader.load("/css/buy/jewelry.css"));
+        Responsive.bindingToParent(container, 1);
     }
     @Override
     public Region build() {
-        container.getChildren().addAll(createMainContainer() );
-        Responsive.bindingToParent(container, 1);
+        container.getChildren().addAll(createReturnButton(),createMainContainer() );
+        
         
         return container;
        
+    }
+
+    private Node createReturnButton(){
+        ImageView icon = ResourceLoader.makeIcon("/util/back.png", 32);
+        VBox button = new VBox(icon);
+        button.setMaxWidth(icon.getFitWidth());
+        button.setPadding(new Insets(5));
+        button.getStyleClass().add("button-photos");
+        button.setOnMouseClicked(evt->{
+            clean();
+            this.services.get("prev").get();
+
+        });
+        return button;
     }
 
     private Node createMainContainer(){
@@ -50,11 +66,26 @@ public class BuyJewelry implements Builder<Region>{
 
    
     private Node createMainRightContainer(){
-        // TODO: Implementar vista para las imagenes
-        VBox container = new VBox(createButtonImages(), createImagesContainer());
+        VBox container = new VBox(createButtonImages(), createImagesContainer(), createMakeBuyButton());
+        container.setPadding(new Insets(20, 10, 10, 10));
+        container.setSpacing(100);
+        container.setAlignment(Pos.CENTER);
         Responsive.bindingToParentWidth(container, 0.5);
         container.getStyleClass().add("main-right");
         return container;
+    }
+    private Node createMakeBuyButton(){
+        Button button = new Button("Comprar");
+        button.setOnMouseClicked(evt ->{
+            /**
+             * TODO: Agregar guardado en DB 
+             */
+            this.services.get("prev").get();
+            
+            
+        });
+        button.setMinSize(400, 50);
+        return button;
     }
 
     private Node createMainLeftContainer(){
@@ -206,6 +237,13 @@ public class BuyJewelry implements Builder<Region>{
     }
     private Node createButtonImages(){
         Button button = new Button("Tomar fotos");
+        button.setMinSize(200, 30);
+        button.getStyleClass().add("button-photos");
+        button.setOnMouseClicked(evt->{
+            /**
+             * TODO: Agregar la toma de fotos
+             */
+        });
 
         return button;
     }
@@ -221,6 +259,10 @@ public class BuyJewelry implements Builder<Region>{
         Button button = new Button("Calcular compra");
         button.setMinWidth(100);
         button.setMinHeight(30);
+        button.setOnMouseClicked(evt -> {
+            services.get("calculateJewelry").get();
+            System.out.println(model.max_purchase_amount().get());
+        });
         button.getStyleClass().add("button-calculate");
        
         return button;
@@ -231,23 +273,47 @@ public class BuyJewelry implements Builder<Region>{
      * Images
      */
 
-     private Node createImagesContainer(){
-        Node images= getImages();
+     private Node createImagesContainer() {
+        getImages();
         GridPane container = new GridPane();
-        container.setConstraints(images, 2, 0);
-        container.getChildren().add(images);
+        
+        int columnasPorFila = 4; 
+        
+        for (int i = 0; i < images.size(); i++) {
+            int columna = i % columnasPorFila; 
+            int fila = i / columnasPorFila;    
+            
+            container.add(images.get(i), columna, fila);
+        }
+        
+       
+        container.setHgap(10);
+        container.setVgap(10); 
+        container.setAlignment(Pos.CENTER); 
+        images.forEach(image -> {
+            image.setFitWidth(200); 
+            GridPane.setHgrow(image, Priority.ALWAYS); 
+        });
         return container;
+    }
+
+     private void getImages(){
+        for(int i = 0; i < 5; i++){
+            Image img = new Image(ResourceLoader.loadStream("/images/real-time/gatito.jpeg"));
+            ImageView image = new ImageView(img);
+            image.setFitWidth(200);
+            image.setPreserveRatio(true);
+            image.setSmooth(true);
+            image.setCache(true);
+            this.images.add(image);
+        }
+      
      }
 
-     private Node getImages(){
-        Image img = new Image(ResourceLoader.loadStream("/images/real-time/gatito.jpeg"));
-        ImageView image = new ImageView(img);
-        image.fitWidthProperty();
-        image.setPreserveRatio(true);
-        image.setSmooth(true);
-        image.setCache(true);
-        return image;
-     }
-
-    
+    private void clean(){
+        this.container.getChildren().clear();
+        this.images.clear();
+        model.clean();
+        build();
+    }
 }

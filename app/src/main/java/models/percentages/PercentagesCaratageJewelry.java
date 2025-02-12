@@ -7,7 +7,7 @@ public class PercentagesCaratageJewelry {
     private final SimpleDoubleProperty min_percentage = new SimpleDoubleProperty(0.7); 
     private final SimpleDoubleProperty mid_percentage = new SimpleDoubleProperty(0.8); 
     private final SimpleDoubleProperty max_percentage = new SimpleDoubleProperty(0.9); 
-    private final SimpleDoubleProperty applied_percentage = new SimpleDoubleProperty(0); 
+    private final SimpleDoubleProperty applied_percentage = new SimpleDoubleProperty(0.9); 
     public PercentagesCaratageJewelry(){
 
     }

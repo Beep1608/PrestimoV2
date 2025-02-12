@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+
+
 import javafx.application.Platform;
 import javafx.scene.layout.Region;
+import models.OptionModel.Views;
 import models.buy.BuyJewelryModel;
 import views.buy.BuyJewelry;
 
@@ -14,9 +17,12 @@ public class BuyJewelryController {
     private final BuyJewelryModel model;
     private final BuyJewelry view;
     private final HashMap<String,Supplier<Void>> services = new HashMap<>();
-    public BuyJewelryController(){
+    private final Supplier<Void> prev;
+    public BuyJewelryController(Supplier<Void> prev){
+        this.prev = prev;
         this.model = new BuyJewelryModel();
         this.services.put("calculateJewelry", this::calculateJewelry);
+        this.services.put("prev", prev);
         this.view = new BuyJewelry(model,services);
     }
     public Region getView(){

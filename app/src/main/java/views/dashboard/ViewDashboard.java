@@ -14,8 +14,10 @@ public abstract class ViewDashboard  implements  Builder<Region>   {
      private final Region whiteGoods;
      private final Region jelwelry;
      private final OptionModel model;
+     private final Region cards;
+     private final Region table;
 
-     public ViewDashboard(String styleSheet, Region electronics, Region whiteGoods, Region jelwelry, OptionModel model){
+     public ViewDashboard(String styleSheet,Region cards, Region table ,Region electronics, Region whiteGoods, Region jelwelry, OptionModel model){
         this.container = new VBox();
         this.container.getStylesheets().add(ResourceLoader.load("/css/dashboard/views/"+styleSheet+".css"));
         this.container.getStyleClass().add("container");
@@ -23,6 +25,8 @@ public abstract class ViewDashboard  implements  Builder<Region>   {
         this.electroncis = electronics;
         this.whiteGoods = whiteGoods;
         this.jelwelry = jelwelry;
+        this.cards = cards;
+        this.table = table;
         this.model = model;
         this.model.currentViewProperty().addListener((obs, oldView, newView) -> switchRightView(getViewByType(newView)));
      }
@@ -39,7 +43,12 @@ public abstract class ViewDashboard  implements  Builder<Region>   {
      * @param activeView La nueva vista activa.
      */
     protected void switchRightView(Region activeView) {
-        container.getChildren().setAll(activeView);
+        if(activeView == null){
+            container.getChildren().setAll(cards,table);
+        
+        }else{
+            container.getChildren().setAll(activeView);
+        }
     }
 
     /**
@@ -53,6 +62,7 @@ public abstract class ViewDashboard  implements  Builder<Region>   {
             case ELECTRONICS -> electroncis;
             case WHITEGOODS -> whiteGoods;
             case JELWERY -> jelwelry;
+            case PARENT -> null;
         };
     }
 

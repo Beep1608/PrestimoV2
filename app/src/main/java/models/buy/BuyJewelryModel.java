@@ -42,6 +42,7 @@ public class BuyJewelryModel {
     private final SimpleBooleanProperty weight_field_node = new SimpleBooleanProperty(true);
     private final SimpleBooleanProperty manual_weight_node = new SimpleBooleanProperty(true);
 
+
     public BuyJewelryModel(){
     
 
@@ -142,7 +143,30 @@ public class BuyJewelryModel {
         return manual_weight_node;
     }
 
+    public void clean(){
+        metal.set(null);
+        caratage.set(0);
+        weight.set(0);
+        price_onz.set(0);
+        conversion_factor.set(0);
+        price_gr_inter.set(0);
+        security_value.set(0);
+        revenue_extern_sale.set(0);
+        revenue_gr.set(0);
+        price_local_gr.set(0);
+        caratage_price.set(0);
+        caratage_price_final.set(0);
+        price_gr_final.set(0);
+        max_purchase_amount.set(0);
 
+        metal_node.set(true);
+        caratage_node.set(true);
+        weight_node.set(true);
+        selectors_caratage_node.set(true);
+        weight_field_node.set(true);
+        manual_weight_node.set(true);
+    }
 
+    
     
 }

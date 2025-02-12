@@ -7,7 +7,7 @@ public abstract class OptionModel {
 
     
     public enum Views {
-        ELECTRONICS, WHITEGOODS, JELWERY
+        ELECTRONICS, WHITEGOODS, JELWERY,PARENT
     }
 
     

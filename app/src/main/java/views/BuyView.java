@@ -35,12 +35,30 @@ public class BuyView extends ViewDashboard {
         this.container.getChildren().addAll(cards, salesTable);
         configureFilter();
     }
+        /**
+         * Configura las columnas de la tabla de ventas.
+         * Actualmente, solo se configura una columna para mostrar el id de
+         * cada venta.
+         * 
+         * @param table La tabla de la que se van a configurar las columnas.
+         * @return null
+         */
     private Void configureColumns(TableComponent<BuyModel> table) {
             table.addColumn("ID", cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().idProperty().get()));
             return null;
         }
         
 
+        /**
+         * Establece un listener para cambios en el texto de búsqueda y actualiza
+         * el filtro de la tabla de ventas en consecuencia.
+         * Si el texto de búsqueda es nulo o vacío, se utiliza un predicado que
+         * devuelve true para todos los elementos.
+         * Si el texto de búsqueda es un número válido, se utiliza un predicado que
+         * filtra los elementos en la tabla según el id de la venta.
+         * Si el texto de búsqueda no es un número válido, se utiliza un predicado
+         * que devuelve false para todos los elementos.
+         */
         private void configureFilter() {
             // Listener para cambios en el texto de búsqueda
             searchText.addListener((observable, oldValue, newValue) -> {
@@ -48,6 +66,15 @@ public class BuyView extends ViewDashboard {
             });
         }
 
+        /**
+         * Crea un predicado que se utiliza para filtrar los elementos en la tabla
+         * según el texto de búsqueda.
+         * 
+         * @param search El texto de búsqueda. Si es nulo o vacío, se devolverá
+         *               un predicado que devuelve true para todos los elementos.
+         * @return Un predicado que se utiliza para filtrar los elementos en la
+         *         tabla.
+         */
         private Predicate<BuyModel> createFilter(String search) {
             return buy -> {
                 if (search == null || search.isEmpty()) {

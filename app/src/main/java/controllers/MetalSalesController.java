@@ -2,9 +2,7 @@ package controllers;
 
 
 import java.util.HashMap;
-import java.util.function.Consumer;
 
-import javafx.concurrent.Task;
 import javafx.scene.layout.Region;
 import javafx.util.Builder;
 import javafx.beans.property.StringProperty;
@@ -34,6 +32,9 @@ public class MetalSalesController {
         return metalSalesView.build();
     }
 
+    /**
+     * Carga los datos de las ventas desde el modelo MetalSales y actualiza la lista observable
+     */
     public void loadSalesData() {
         items.setAll(model.getMetalSalesList());  // Actualiza la lista observable
     }

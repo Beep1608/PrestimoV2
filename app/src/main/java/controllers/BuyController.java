@@ -1,8 +1,6 @@
 package controllers;
 
 import controllers.buy.BuyJewelryController;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +8,6 @@ import javafx.scene.layout.Region;
 import models.BuyModel;
 import views.BuyView;
 import views.buy.BuyElectronics;
-import views.buy.BuyJewelry;
 import views.buy.BuyWhiteGoods;
 
 public class BuyController {
@@ -26,7 +23,6 @@ public class BuyController {
         this.buyJewelryController = new BuyJewelryController();
         this.cards = new CardsOptionController(model::setCurrentView);
         
-        //TODO: Agregar tabla
         this.view  = new BuyView(
             cards.getView(),
             new BuyElectronics().build(), 
@@ -52,6 +48,10 @@ public class BuyController {
         return view.build();
     }
 
+    /**
+     * Carga los datos de la tabla de compras de metales en la lista observable.
+     * Los datos se obtienen mediante el método getBuyData() del modelo.
+     */
     private void loadData() {
         items.setAll(model.getBuyData()); // Método que obtiene datos de BD o servicio
     }

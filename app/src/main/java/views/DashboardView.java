@@ -15,7 +15,6 @@ import javafx.util.Builder;
 import models.DashboardModel;
 import models.DashboardModel.Views;
 import views.dashboard.Option;
-import views.dashboard.SearchBar;
 import views.dashboard.SideBar;
 import views.dashboard.TopBar;
 import views.utils.ResourceLoader;
@@ -33,6 +32,7 @@ public class DashboardView implements Builder<Region> {
     private final HashMap<String, Function<?, ?>> service;
     private final DashboardModel model;
     private StackPane contentContainer;
+    private StringProperty searchText;
 
     /**
      * Constructor de la vista del dashboard.
@@ -49,6 +49,7 @@ public class DashboardView implements Builder<Region> {
         this.loanView = loanView;
         this.saleView = saleView;
         this.metalSalesView = metalSalesView;
+        this.searchText = searchText;
         this.topBar = new TopBar(searchText);
         this.topBar.currentView().set("Dashboard");
         this.service = service;
@@ -150,6 +151,10 @@ public class DashboardView implements Builder<Region> {
      */
     private void switchRightView(Region activeView) {
         contentContainer.getChildren().setAll(activeView);
+        // Cada que cambia la ventana tengo que limpiar el buscador
+        this.searchText.set("");
+
+        
     }
 
     /**
@@ -176,7 +181,4 @@ public class DashboardView implements Builder<Region> {
         model.setCurrentView(view);
     }
 
-    public SearchBar getSearchBar() {
-        return topBar.getSearchBar();
-    }
 }

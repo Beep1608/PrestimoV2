@@ -56,8 +56,5 @@ public class TopBar {
         return currentView;
     }
     
-    // Debemos obtener la referencia de la barra de busqueda
-    public SearchBar getSearchBar(){
-        return searchBar;
-    }
+    
 }

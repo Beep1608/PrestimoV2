@@ -1,12 +1,13 @@
 package controllers;
 
 import controllers.buy.BuyJewelryController;
-import javafx.application.Platform;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.Region;
 import models.BuyModel;
 import views.BuyView;
 import views.buy.BuyElectronics;
-import views.buy.BuyJewelry;
 import views.buy.BuyWhiteGoods;
 
 public class BuyController {
@@ -15,16 +16,24 @@ public class BuyController {
     private final BuyModel model;
     private final CardsOptionController cards;
     private final BuyJewelryController buyJewelryController;
-    public BuyController(){
+    private final ObservableList<BuyModel> items = FXCollections.observableArrayList(); 
+
+    public BuyController(StringProperty searchText){
         this.model =new BuyModel();
         this.buyJewelryController = new BuyJewelryController();
         this.cards = new CardsOptionController(model::setCurrentView);
-        //TODO: Agregar tabla
-        this.view  = new BuyView(cards.getView(), new Region()/*Table */,
-        new BuyElectronics().build(), 
-        new BuyWhiteGoods().build(), 
-        buyJewelryController.getView(),
-        model );
+        
+        this.view  = new BuyView(
+            cards.getView(),
+            new BuyElectronics().build(), 
+            new BuyWhiteGoods().build(), 
+            buyJewelryController.getView(),
+            model,
+            searchText,
+            items
+            );
+
+        loadData();
         
     
     }
@@ -38,5 +47,14 @@ public class BuyController {
     public Region getView(){
         return view.build();
     }
+
+    /**
+     * Carga los datos de la tabla de compras de metales en la lista observable.
+     * Los datos se obtienen mediante el método getBuyData() del modelo.
+     */
+    private void loadData() {
+        items.setAll(model.getBuyData()); // Método que obtiene datos de BD o servicio
+    }
+
 }
 

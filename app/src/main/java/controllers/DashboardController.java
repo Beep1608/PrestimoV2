@@ -28,7 +28,7 @@ public class DashboardController {
     public DashboardController() {
         
         this.metalSalesController = new MetalSalesController(searchText);
-        this.buyController = new BuyController();
+        this.buyController = new BuyController(searchText);
         this.loanController = new LoanController();
         this.saleController = new SaleController();
         

@@ -2,6 +2,8 @@ package controllers;
 
 import controllers.buy.BuyJewelryController;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.layout.Region;
 import models.BuyModel;
 import views.BuyView;
@@ -15,6 +17,7 @@ public class BuyController {
     private final BuyModel model;
     private final CardsOptionController cards;
     private final BuyJewelryController buyJewelryController;
+    private final StringProperty searchText = new SimpleStringProperty("");
     public BuyController(){
         this.model =new BuyModel();
         this.buyJewelryController = new BuyJewelryController();
@@ -24,7 +27,8 @@ public class BuyController {
         new BuyElectronics().build(), 
         new BuyWhiteGoods().build(), 
         buyJewelryController.getView(),
-        model );
+        model,
+        searchText);
         
     
     }

@@ -15,7 +15,6 @@ import javafx.util.Builder;
 import models.DashboardModel;
 import models.DashboardModel.Views;
 import views.dashboard.Option;
-import views.dashboard.SearchBar;
 import views.dashboard.SideBar;
 import views.dashboard.TopBar;
 import views.utils.ResourceLoader;
@@ -176,7 +175,4 @@ public class DashboardView implements Builder<Region> {
         model.setCurrentView(view);
     }
 
-    public SearchBar getSearchBar() {
-        return topBar.getSearchBar();
-    }
 }

@@ -18,11 +18,16 @@ import views.MetalSalesView;
 public class MetalSalesController {
     private final Builder<Region> metalSalesView;
     private final MetalSales model;
+    private final ObservableList<MetalSales> items = FXCollections.observableArrayList();
 
     public MetalSalesController(StringProperty searchText) {
         this.model = new MetalSales();
-        HashMap<String, Consumer<Runnable>> map =new HashMap<String, Consumer<Runnable>>();
-        this.metalSalesView = new MetalSalesView(model, map, searchText);
+        this.metalSalesView = new MetalSalesView(
+            model, 
+            new HashMap<>(), 
+            searchText, 
+            items  // Pasa la lista observable
+        );
     }
 
     public Region getView() {
@@ -30,17 +35,6 @@ public class MetalSalesController {
     }
 
     public void loadSalesData() {
-        Task<ObservableList<MetalSales>> loadTask = new Task<>() {
-            @Override
-            protected ObservableList<MetalSales> call() {
-                return FXCollections.observableArrayList(model.getMetalSalesList());
-            }
-        };
-
-        loadTask.setOnSucceeded(e -> {
-            ((MetalSalesView) metalSalesView).getSalesTable().setAll(loadTask.getValue());
-        });
-
-        new Thread(loadTask).start();
+        items.setAll(model.getMetalSalesList());  // Actualiza la lista observable
     }
 }

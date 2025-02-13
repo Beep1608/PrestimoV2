@@ -1,6 +1,11 @@
 package models.local;
 
-import javafx.beans.property.*;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import models.database.DatabaseInit;
 import models.database.DatabaseVariables;
 
@@ -11,7 +16,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetalSales {
+import models.BaseModel;
+
+public class MetalSales implements BaseModel {
+    
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private final SimpleIntegerProperty kilataje = new SimpleIntegerProperty(0);
     private final SimpleDoubleProperty peso = new SimpleDoubleProperty(0.0);
@@ -69,6 +77,15 @@ public class MetalSales {
 
 
     // Getters
+    @Override
+    public IntegerProperty idProperty() {  
+        return id;
+    }
+
+    @Override
+    public StringProperty searchStringProperty() {  
+        return new SimpleStringProperty(String.valueOf(id.get()));
+    }
 
     public SimpleIntegerProperty getIdProperty() {return this.id;}
 

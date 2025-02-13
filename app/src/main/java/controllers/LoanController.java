@@ -2,7 +2,6 @@ package controllers;
 
 import javafx.scene.layout.Region;
 import models.LoanModel;
-import views.BuyView;
 import views.LoanView;
 import views.loan.LoanElectronics;
 import views.loan.LoanJewelry;
